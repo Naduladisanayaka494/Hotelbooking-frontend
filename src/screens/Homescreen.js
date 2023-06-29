@@ -1,27 +1,44 @@
+/* eslint-disable react/jsx-no-undef */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Room from '../components/Room';
 
 function Homescreen() {
-    const[rooms,setrooms]=useState([]);
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios
-      .get('/api/rooms/getallrooms')
-      .then(response => {
-        const data = response.data;
-        setrooms(data)
-      })
-      .catch(error => {
+    const fetchRooms = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get('/api/rooms/getallrooms');
+        setRooms(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
         console.log(error);
-      });
+      }
+    };
+
+    fetchRooms();
   }, []);
 
   return (
-    <div className='App'>
-      <navbar />
-      <h1>Homescreen</h1>
-      <h1>there are{rooms.length-1} rooms</h1>
-      
+    <div className="container">
+         <div className='row justify-content-center mt-5'>
+         {loading ? (<h1>Loading .....</h1>):error ? (<h1>Error</h1>):(rooms.map(room=>{
+      return <div className='com-md-9 mt-2'>
+           <Room room={room}/>
+      </div>
+     }))}
+          
+
+         </div>
+
+
+
     </div>
   );
 }
