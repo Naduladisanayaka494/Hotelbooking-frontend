@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
 import React ,{useState}from 'react';
-import { Modal,Button } from 'react-bootstrap';
+import { Modal,Button, Carousel } from 'react-bootstrap';
 
 
 function Room({room}) {
@@ -22,21 +22,38 @@ function Room({room}) {
                     <p>Type: {room.type}</p>       
                 </b>
                 <div style={{ float:"left" }}>
-                    <button className='btn btn-primary'>view Details</button>
+                    <button className='btn btn-primary' onClick={handleShow}>view Details</button>
                 </div>
             </div>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} size='lg'>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>{room.name}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+        <Carousel>
+    
+      
+      <Carousel.Item>
+        <img
+          className="d-block w-100 bigimg"
+          src={room.imageUrls[0] }
+        />
+
+        <Carousel.Caption>
+          {/* <h3>Third slide label</h3>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          </p> */}
+        </Carousel.Caption>
+        <p>{room.description}</p>
+      </Carousel.Item>
+    </Carousel>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
+       
         </Modal.Footer>
       </Modal>
 
