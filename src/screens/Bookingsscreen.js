@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Loader from '../components/Loader';
+import Error from '../components/Error';
 
 function Bookingsscreen() {
   const { roomid } = useParams();
@@ -27,7 +29,7 @@ function Bookingsscreen() {
 
   return (
     <div  className='m-5'>
-       {loading ? (<h1>Loading .....</h1>):error ? (<h1>Error</h1>):(<div>
+       {loading ? (<Loader></Loader>):error ? (<Error></Error>):(<div>
              <div className="row justify-content-center mt-5 bs">
 
               <div className='col-md-5'>
