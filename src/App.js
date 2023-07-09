@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Room from './components/Room';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Homescreen from './screens/Homescreen';
+import Bookingsscreen from './screens/Bookingsscreen';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/home" element={<Homescreen />} />
           <Route path="/rooms" element={<Room />} />
+          <Route path="/book/:roomid" element={<Bookingsscreen />} />
 
         </Routes>
       </BrowserRouter>

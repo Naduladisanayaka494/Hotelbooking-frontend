@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
-import React ,{useState}from 'react';
+import React ,{useState,useEffect}from 'react';
 import { Modal,Button, Carousel } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 function Room({room}) {
@@ -22,6 +23,9 @@ function Room({room}) {
                     <p>Type: {room.type}</p>       
                 </b>
                 <div style={{ float:"left" }}>
+                  <Link to={`/book/${room._id}`}>
+                  <button className='btn btn-primary m-2' >Book Now</button>
+                  </Link>
                     <button className='btn btn-primary' onClick={handleShow}>view Details</button>
                 </div>
             </div>
