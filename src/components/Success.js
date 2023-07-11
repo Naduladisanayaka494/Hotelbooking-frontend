@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-function Success() {
+function Success(props) {
   return (
     <div>
-        <div class="alert alert-success" role="alert">
-  This is a success alert—check it out!
-</div>
+      <div className="alert alert-success" role="alert">
+        {props.message}
+      </div>
     </div>
-  )
+  );
 }
 
-export default Success
+export default Success;

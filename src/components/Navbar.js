@@ -1,32 +1,48 @@
-import React from 'react'
-
 function Navbar() {
+  const user = JSON.parse(localStorage.getItem('currentUser'));
+  console.log(user?.data?.name); // Use optional chaining to avoid errors
+
   return (
-    <nav class="navbar navbar-expand-lg ">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Share Rooms</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/register">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-          {/* <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li> */}
-        </ul>
+    <nav className="navbar navbar-expand-lg">
+      <div className="container-fluid">
+        <a className="navbar-brand" href="#">Share Rooms</a>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            {user ? (
+            <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {user.data.name}
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/register">Register</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/login">Login</a>
+                </li>
+                {/* <li className="nav-item">
+                  <a className="nav-link" href="#">Pricing</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">Disabled</a>
+                </li> */}
+              </>
+            )}
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
-  )
+    </nav>
+  );
 }
 
-export default Navbar
+export default Navbar;

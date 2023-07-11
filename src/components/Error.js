@@ -1,12 +1,13 @@
 import React from 'react'
 
-function Error() {
+function Error(props) {
   return (
     <div>
      
      <div class="alert alert-danger" role="alert">
- something went wrong please try again later
+     {props.message}
 </div>
+
 
     </div>
   )
