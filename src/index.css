@@ -55,3 +55,6 @@ code {
   box-shadow: none !important;
   margin-top: 10px;
 }
+.white-bg {
+  background-color: white;
+}
