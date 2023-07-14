@@ -13,6 +13,8 @@ function Bookingsscreen() {
   const fromDateObj = moment(fromdate, 'DD-MM-YYYY');
   const toDateObj = moment(todate, 'DD-MM-YYYY');
   const totaldays = toDateObj.diff(fromDateObj, 'days') + 1;
+  // const totalamount=totaldays * room.rentperday
+  const [totalamount, settotalamount] = useState();
   
 
   useEffect(() => {
@@ -20,17 +22,40 @@ function Bookingsscreen() {
       try {
         setLoading(true);
         const data = (await axios.post('/api/rooms/getroombyid', { roomid })).data;
+        settotalamount(data.rentperday*totaldays)
         setRoom(data);
         setLoading(false);
       } catch (error) {
         setError(error);
         setLoading(false);
         console.log(error);
+        console.log(JSON.parse(localStorage.getItem('currentUser')).data._id);
+
       }
     };
 
     fetchRooms();
   }, [roomid]);
+
+  async function bookRoom(){
+    const bookingDetails= {
+      room,
+      userid:JSON.parse(localStorage.getItem('currentUser')).data.id,
+      fromdate,
+      todate,
+      totalamount,
+      totaldays,
+      
+
+    }
+    
+    try {
+      const result = await axios.post('/api/bookings/bookroom',bookingDetails)
+      
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <div className='m-5'>
@@ -50,7 +75,7 @@ function Bookingsscreen() {
                 <h1>Booking details</h1>
                 <hr></hr>
                 <b>
-                  <p>Name:</p>
+                  <p>Name:{JSON.parse(localStorage.getItem('currentUser')).data.name}</p>
                   <p>From Date: {fromdate}</p>
                   <p>To Date: {todate}</p>
                   <p>Max count:</p>
@@ -60,11 +85,11 @@ function Bookingsscreen() {
                 <b>
                   <p>Total days: {totaldays}</p>
                   <p>Rent Per day: {room.rentperday}</p>
-                  <p>Total Amount:</p>
+                  <p>Total Amount:{totalamount}</p>
                 </b>
               </div>
               <div style={{ float: 'right' }}>
-                <button className='btn btn-primary'>Pay Now</button>
+                <button className='btn btn-primary' onClick={bookRoom}>Pay Now</button>
               </div>
               <div></div>
             </div>
