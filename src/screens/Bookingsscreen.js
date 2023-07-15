@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
 import moment from 'moment';
-
+import swal from 'sweetalert';
+import { useHistory } from 'react-router-dom';
 function Bookingsscreen() {
   const { roomid, fromdate, todate } = useParams();
   const [room, setRoom] = useState([]);
@@ -50,10 +51,17 @@ function Bookingsscreen() {
     }
     
     try {
+      setLoading(true)
       const result = await axios.post('/api/bookings/bookroom',bookingDetails)
-      
+      setLoading(false)
+      swal('Congragulations','Your room booked successfully','success').then(result=>{
+        window.location.href='/bookings'
+      })
     } catch (error) {
-      
+      setLoading(false)
+      swal('Oops','something went wrong','error').then(result=>{
+        window.location.href='/bookings'
+      })
     }
   }
 
