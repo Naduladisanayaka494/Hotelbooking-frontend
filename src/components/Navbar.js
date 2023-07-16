@@ -24,9 +24,9 @@ function Navbar() {
                   {user.data.name}
                 </button>
                 <ul className="dropdown-menu white-bg">
-                  <li><a className="dropdown-item" href="/bookings">Bookings</a></li>
+                  <li><a className="dropdown-item" href="/profile">Profile</a></li>
                   <li><a className="dropdown-item" href="#" onClick={logout}>Logout</a></li>
-                  <li><a className="dropdown-item" href="#">Something else here</a></li>
+                
                 </ul>
               </div>
             ) : (

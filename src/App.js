@@ -7,6 +7,7 @@ import Homescreen from './screens/Homescreen';
 import Bookingsscreen from './screens/Bookingsscreen';
 import Registerscreen from './screens/Registerscreen';
 import Loginscreen from './screens/Loginscreen';
+import Profilescreen from './screens/Profilescreen';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/book/:roomid/:fromdate/:todate" element={<Bookingsscreen />} />
           <Route path="/register" element={<Registerscreen/>} />
           <Route path="/login" element={<Loginscreen/>} />
+          <Route path="/profile" element={<Profilescreen/>} />
 
         </Routes>
       </BrowserRouter>
