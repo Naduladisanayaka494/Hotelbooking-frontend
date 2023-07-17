@@ -4,6 +4,9 @@ import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
+import swal from 'sweetalert';
+import { Divider, Space, Tag } from 'antd';
+
 
 const onChange = (key: string) => {
   console.log(key);
@@ -68,6 +71,25 @@ export function Mybookings() {
     fetchBookings();
   }, []);
 
+  async function cancelBooking(bookingid,roomid){
+
+    try {
+      setLoading(true)
+      const result = await (await axios.post('/api/bookings/cancelbooking', { bookingid,roomid})).data;
+      console.log(result);
+      setLoading(false)
+      swal('Congragulations','Your room Cancelled successfully','success').then(result=>{
+        window.location.reload()
+      })
+    } catch (error) {
+      console.log(error);
+
+      setLoading(false)
+      swal('Oops','something went wrong','error')
+    }
+
+  }
+
   return(
     <div>
         <div className='row'>
@@ -80,11 +102,11 @@ export function Mybookings() {
                     <p>'CheckIn:{booking.fromdate}</p>
                     <p>'CheckOut:{booking.todate}</p>
                     <p>'Total amount:{booking.totalamount}</p>
-                    <p>'status:{booking.status=='booked' ? 'Confirmed':'cancelled'}</p>
-
-                    <div style={{ float: 'right' }}>
-                <button className='btn btn-primary' >Cancel booking</button>
-              </div>
+                    <p>'status:{booking.status=='booked' ? (   <Tag color="green">Confirmed</Tag>):( <Tag color="red">Cancelled</Tag>)}</p>
+                    {booking.status !='cancelled' &&(    <div style={{ float: 'right' }}>
+                <button className='btn btn-primary' onClick={()=>{cancelBooking(booking._id,booking.roomid)}} >Cancel booking</button>
+              </div>)}
+                
 
                     </div>
 

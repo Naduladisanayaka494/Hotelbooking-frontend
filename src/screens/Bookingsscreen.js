@@ -19,6 +19,12 @@ function Bookingsscreen() {
   
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+  
+      if (!user) {
+        window.location.href = '/login';
+      }
+  
     const fetchRooms = async () => {
       try {
         setLoading(true);
