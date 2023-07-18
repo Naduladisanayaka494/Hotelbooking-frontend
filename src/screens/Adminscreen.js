@@ -34,7 +34,7 @@ function Adminscreen() {
     {
       key: '3',
       label: 'Add Room',
-      children: <h1>Add Rooms</h1>,
+      children:<AddRoom/>,
     },
     {
       key: '4',
@@ -221,6 +221,65 @@ export function Bookings() {
     );
     
   }
+
+
+
+ 
+  
+  export function AddRoom() {
+    const[name,setname]=useState('')
+    const[rentperday,setrentperday]=useState('')
+    const[maxcount,setmaxcount]=useState('')
+    const[description,setdescription]=useState('')
+    const[phonenumber,setdphonenumber]=useState('')
+    const[type,settype]=useState('')
+    const[imageurl1,setimageurl1]=useState('')
+    const[imageurl2,setimageurl2]=useState('')
+    const[imageurl3,setimageurl3]=useState('')
+
+    function addRoom(){
+      const newRoom={
+        name,
+        rentperday,
+        maxcount,
+        description,
+        phonenumber,
+        type,
+        imageurls:[imageurl1,imageurl2,imageurl3]
+      }
+      console.log(newRoom)
+    
+    }
+
+    return (
+      <div className='row'>
+      <div className='col-md-5'>
+        <input type='text' className='form-control' placeholder='room name' value={name} onChange={ (e)=>{setname(e.target.value)} }/>
+        <input type='text' className='form-control' placeholder='rent per day' value={rentperday} onChange={ (e)=>{setrentperday(e.target.value)} }/>
+        <input type='text' className='form-control' placeholder='max count' value={maxcount} onChange={ (e)=>{setmaxcount(e.target.value)} } />
+        <input type='text' className='form-control' placeholder='description' value={description} onChange={ (e)=>{setdescription(e.target.value)} } />
+        <input type='text' className='form-control' placeholder='phone number'value={phonenumber} onChange={ (e)=>{setdphonenumber(e.target.value)} } />
+
+      </div>
+
+      <div className='col-md-5'>
+      <input type='text' className='form-control' placeholder='type'value={type} onChange={ (e)=>{settype(e.target.value)} } />
+        <input type='text' className='form-control' placeholder='image url1' value={imageurl1} onChange={ (e)=>{setimageurl1(e.target.value)} } />
+        <input type='text' className='form-control' placeholder='image url2'value={imageurl2} onChange={ (e)=>{setimageurl2(e.target.value)} } />
+        <input type='text' className='form-control' placeholder='image url3' value={imageurl3} onChange={ (e)=>{setimageurl3(e.target.value)} }/>
+
+      </div>
+      
+      <div style={{ float: 'right' }}>
+                <button className='btn btn-primary' onClick={addRoom}>Add room</button>
+              </div>
+
+
+      </div>
+    )
+  }
+  
+
 
   
   
