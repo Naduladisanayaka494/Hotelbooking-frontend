@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Tabs } from 'antd';
 import Loader from '../components/Loader';
+import swal from 'sweetalert';
 
 const onChange = (key: string) => {
   console.log(key);
@@ -227,6 +228,8 @@ export function Bookings() {
  
   
   export function AddRoom() {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const[name,setname]=useState('')
     const[rentperday,setrentperday]=useState('')
     const[maxcount,setmaxcount]=useState('')
@@ -237,7 +240,7 @@ export function Bookings() {
     const[imageurl2,setimageurl2]=useState('')
     const[imageurl3,setimageurl3]=useState('')
 
-    function addRoom(){
+   async function addRoom(){
       const newRoom={
         name,
         rentperday,
@@ -245,14 +248,31 @@ export function Bookings() {
         description,
         phonenumber,
         type,
-        imageurls:[imageurl1,imageurl2,imageurl3]
+        imageUrls:[imageurl1,imageurl2,imageurl3]
       }
       console.log(newRoom)
+      try {
+        setLoading(true)
+        const result = await (await axios.post('/api/rooms/addroom',newRoom)).data
+        console.log(result)
+        setLoading(false)
+        swal('Congragulations',' Room Added successfully','success').then(result=>{
+          window.location.href='/home'
+        })
+        
+      } catch (error) {
+        console.log(error)
+        setLoading(false)
+        swal('Oops','something went wrong','error')
+        
+      }
     
     }
 
     return (
+   
       <div className='row'>
+           {loading && <Loader />}
       <div className='col-md-5'>
         <input type='text' className='form-control' placeholder='room name' value={name} onChange={ (e)=>{setname(e.target.value)} }/>
         <input type='text' className='form-control' placeholder='rent per day' value={rentperday} onChange={ (e)=>{setrentperday(e.target.value)} }/>
