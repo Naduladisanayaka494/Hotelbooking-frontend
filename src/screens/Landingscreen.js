@@ -1,22 +1,18 @@
-  
-  import React from 'react'
-  import { Link } from 'react-router-dom';
-  
-  function>
-  () {
-    return (
-      <div className='row landing'>
-        <div className='col-md-12'>
-            <h2>Nadula Rooms</h2>
-            <h1>"We provide quality service to you"</h1>
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-            <Link to="/home">
-                <button>Get Started</button>
-            </Link>
-        </div>
-
+const Landingscreen = () => {
+  return (
+    <div className='landing-container'>
+      <div className='landing-content'>
+        <h1 className='landing-title'>Nadula Rooms</h1>
+        <h2 className='landing-title'>"We provide quality service to you"</h2>
+        <Link to="/home" className='get-started-btn'>
+          Get Started
+        </Link>
       </div>
-    )
-  }
-  
-  export default>
+    </div>
+  );
+}
+
+export default Landingscreen;
